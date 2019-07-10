@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parent</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>I am the Parent</h1>
+    <p>
+      Times message received from Child: <output id="output">0</output>.
+    </p>
+    <iframe id="child" src="http://localhost:3001"></iframe>
+    <script>
+      const setParentCounter = value => {
+        const output = window.document.getElementById('output')
+        output.innerText = value
+      }
+
+      window.addEventListener('message', e => {
+        // e.data is what was passed by the child.
+        //
+        // Could be Object, String, etc.
+        if (e.origin === 'http://localhost:3001') {
+          // custom code by the parent
+          setParentCounter(e.data)
+        }
+      })
+    </script>
+  </body>
+</html>

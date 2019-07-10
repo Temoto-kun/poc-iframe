@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Child</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>I am the Child</h1>
+    <button id="sendMessageButton">
+      Send Message to Parent
+    </button>
+    <p>
+      Times message sent to Parent: <output id="output">0</output>.
+    </p>
+    <script>
+      const setChildCounter = value => {
+        const output = window.document.getElementById('output')
+        output.innerText = value
+      }
+
+      let counter = 0
+
+      const button = window.document.getElementById('sendMessageButton')
+
+      button.addEventListener('click', () => {
+        // This will send a message to the parent Window
+        window.parent.postMessage(counter + 1, 'http://localhost:3000')
+        counter = counter + 1
+        // custom code by the child
+        setChildCounter(counter)
+      })
+    </script>
+  </body>
+</html>
